@@ -1,0 +1,67 @@
+cleaning:
+  missing_values:
+    Rating:
+      method: median  # Options: mean, median, drop
+    Founded:
+      method: median  # Options: mean, median, mode, drop
+    Competitors:
+      method: replace
+      value: Unknown
+    Revenue:
+      method: replace
+      value: Unknown
+    Industry:
+      method: replace
+      value: Other
+  salary_parsing:
+    target_column: Salary Estimate
+    output_column: Avg Salary
+  text_normalization:
+    columns: [Job Title, Job Description]
+    lowercase: true
+    remove_special_chars: false
+  outlier_handling:
+    columns: [Rating, Founded]
+    method: cap  # Options: cap, remove
+  categorical_encoding:
+    columns: [Industry, Location, Sector, Type of ownership]
+    method: one-hot  # Options: one-hot, label
+  feature_engineering:
+    skills: [Python, SQL, R, Machine Learning, Deep Learning, Statistics, Tableau, Excel, TensorFlow, Spark]
+
+# NEW SECTIONS FOR ADVANCED FEATURES
+scalability:
+  chunk_size: "auto"  # or specific number like 10000
+  parallel_workers: "auto"  # or specific number like 4
+  memory_limit_mb: 2048
+  enable_caching: true
+  max_combinations_to_test: 20
+
+performance_thresholds:
+  max_processing_time_seconds: 300
+  min_improvement_threshold: 0.05
+  early_stopping_patience: 5
+  target_mse_threshold: 5000000000  # Stop if we achieve this MSE
+
+user_preferences:
+  priority: "accuracy"  # Options: accuracy, speed, memory_efficiency
+  domain: "general"     # Options: general, finance, healthcare, tech
+  interpretability_requirement: true
+  max_features: 100  # Limit feature explosion
+
+model:
+  random_forest:
+    n_estimators: 100
+    max_depth: null
+    random_state: 42
+  
+  cross_validation:
+    n_splits: 5
+    shuffle: true
+    random_state: 42
+
+paths:
+  data_dir: "data"
+  output_dir: "output"
+  log_dir: "logs"
+  screenshots_dir: "screenshots"
